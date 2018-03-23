@@ -10,7 +10,7 @@ Burning Man for the masses!
 
 Author  
 ------
-Lesaichot  François
-Mehdioui   Nadjim
-Sirbulescu Alexis
+Lesaichot  François  
+Mehdioui   Nadjim  
+Sirbulescu Alexis  
 
