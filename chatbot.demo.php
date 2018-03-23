@@ -17,9 +17,9 @@ class ChatBot extends WebSocket{
 
         if(strstr($msg, 'hello')){ // just a test message
             $this->send($user->socket,"hello human");
-        }else if(strstr($msg, 'competence')){ // competence declaration
+        }else if(strstr($msg, 'CPT')){ // competence declaration
             $this->declareCompetence($user, $msg);
-        }else if(strstr($msg, 'demande')){    // demand declaration
+        }else if(strstr($msg, 'DMD')){    // demand declaration
             $this->declareDemande($user, $msg); 
         }else{                                // error handling
             $this->send($user->socket,$msg." not understood. You better make no mistake next time dude.");
@@ -42,11 +42,11 @@ class ChatBot extends WebSocket{
         foreach ($horaires as $horaire) {
             $cpt = new Competence($cpt_args[1], $user->id, $horaire, false);
             $this->competences[] = $cpt;
+
+            $match = $this->searchCptMatch($dmd);
         }
 
         $this->send($user->socket, 'you declared yourself a competent ' . $cpt_args[1]);
-
-        $this->debug(); 
     }
 
     function declareDemande($user, $msg){
@@ -65,11 +65,49 @@ class ChatBot extends WebSocket{
         foreach ($horaires as $horaire) {
             $cpt = new Demande($cpt_args[1], $user->id, $horaire, false);
             $this->demandes[] = $cpt;
+    
+            // searching for a match
+            $match = $this->searchDmdMatch($cpt);
         }
 
         $this->send($user->socket, 'You asked for a competent ' . $cpt_args[1]);
 
-        $this->debug(); 
+        echo("Dump Match  ");
+        var_dump($match);
+    }
+
+
+    // TODO: there should be a way to factorize those two...
+    // search for a competence match in the demands
+    // returns an array of demands matching the competence
+    function searchCptMatch($cpt){
+        $dmdMatched = array();
+        
+        foreach($this->demandes as $demande){
+            if(strcmp($demande->nomDmd == $cpt->nomCpt) == 0){
+                if(strcmp($demande->horaireD == $cpt->horaireC) == 0){
+                    $dmdMatched[] = $demande;
+                }
+            }
+        }
+
+        return $dmdMatched; 
+    }
+    
+    // search for a demand match in the competences
+    // returns an array of competences matching the demand
+    function searchDmdMatch($dmd){
+        $cptMatched = array();
+        
+        foreach($this->competences as $competence){
+            if(strcmp($competence->nomCpt == $dmd->nomDmd) == 0){
+                if(strcmp($competence->horaireC, $dmd->horaireD) == 0){
+                    $cptMatched[] = $competence;
+                }
+            }
+        }
+
+        return $cptMatched; 
     }
 
 
