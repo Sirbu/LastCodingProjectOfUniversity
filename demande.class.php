@@ -1,16 +1,20 @@
 <?php
 
+// 10:00 11:00 21/12/2012
+
 class Demande{
 
-    function __construct($libelle, $idPers, $horaires){
+    function __construct($idPers, $horaire, $libelle, $ville){
         $this->nomDmd = $libelle;
         $this->idPersonneD = $idPers;
-        $this->horairesD = $horaires;
+        $this->horaireD = $horaire;
+        $this->ville = $ville;
         $this->matched = false;
     }
 
     public $nomDmd;
     public $idPersonneD;
-    public $horairesD;
+    public $horaireD;
+    public $ville;
     public $matched;
 }
