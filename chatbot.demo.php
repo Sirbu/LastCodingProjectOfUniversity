@@ -72,6 +72,8 @@ class ChatBot extends WebSocket{
             }
         }
         
+        var_dump($this->competences);
+        var_dump($this->demandes);
     }
 
 
@@ -98,7 +100,7 @@ class ChatBot extends WebSocket{
             $cpt = new Demande($user->id, $cpt_args[1], $cpt_args[2], $cpt_args[3]);
             $this->demandes[] = $cpt; 
             // searching for a match
-            $detail_date = explode(')(', $horaire);
+            $detail_date = explode('.', $horaire);
             $match = $this->searchDmdMatch($cpt, $detail_date);
 
             var_dump($match);
@@ -127,6 +129,8 @@ class ChatBot extends WebSocket{
             }
         }
 
+        var_dump($this->competences);
+        var_dump($this->demandes);
     }
 
 
@@ -147,8 +151,6 @@ class ChatBot extends WebSocket{
                         $date_tmp = explode('-', $date_details[1]);
                         $date = $date_tmp[2].'-'.$date_tmp[1].'-'.$date_tmp[0];
                         echo($date.'||||'.$date_details[0]);
-                        $weather = getMeteo($date, $date_details[0], $demande->ville);
-                        echo('OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO'.$weather);
                         $distance = calculDistance($demande->ville, $cpt->ville);
                         if($distance < 50 || $weather == 'KO'){
                             $dmdMatched[] = $demande;
@@ -173,8 +175,6 @@ class ChatBot extends WebSocket{
                         $date_tmp = explode('-', $date_details[1]);
                         $date = $date_tmp[2].'-'.$date_tmp[1].'-'.$date_tmp[0];
                         $weather = getMeteo($date, $date_details[0], $competence->ville);
-                        echo($date.'||||'.$date_details[0]);
-                        echo('OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO'.$weather);
                         $distance = calculDistance($competence->ville, $dmd->ville);
                         if($distance < 50 || ($weather == 'KO' || $weather == 'city not found')){
                             $cptMatched[] = $competence;
