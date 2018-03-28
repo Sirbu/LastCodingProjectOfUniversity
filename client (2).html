@@ -1,0 +1,142 @@
+<html>
+<head>
+<title>WebSocket</title>
+
+<link rel="stylesheet" type="text/css" href="client.css">
+</head>
+
+<div  id="global">
+<body onload="init()">
+ <h2>WebSocket v2.00</h2>
+ <div id="log"></div>
+<center> _________________________________________________________</center>
+ <br>
+ 
+ <div id="formulaire">
+   <form>
+       -> Quelle competence choisissez-vous ?
+      <br><br>
+      <select id="metier">
+        <option value="carl">Carleur</option>
+        <option value="cuis">Cuisinier</option>
+        <option value="elec">Electricien</option>
+        <option value="jard">Jardinier</option>
+        <option value="mena">Menage</option>
+        <option value="plom">Plombier</option>
+        <option value="prom">Promenade</option>
+      </select>
+      <br><br>
+
+      -> Quelle ville voulez-vous ?
+      <br><br>
+        <input type="text" id="ville" size="15">
+      <br><br>
+
+      -> Quel creneau choisissez-vous ?
+      <br><br>
+       <select id="creneau">
+         <option value="mat">Matinee</option>
+         <option value="apr">Apres-midi</option>
+         <option value="jou">Journee entiere</option>
+       </select>
+       <input id="date" type="date">
+      <br><br>
+
+      -> Choisissez un type de requete ?
+       <br><br>
+        <select id="requete">
+          <option>Rechercher</option>
+          <option>Deposer</option>
+        </select>
+       <br><br>
+<!-- horaires V2
+ <button id='button' onlick="duplicate()">Plus de creneaux ? </button>
+ <br><br>
+ <div id="duplicater">
+       <label for="startTime">Debut : </label>
+       <input type="time" id="startTime">
+       <label for="endTime">Fin : </label>
+       <input type="time" id="endTime">
+       <label> Date : </label>
+       <input type="date" id="dateutu" value="11/12/2013">
+ </div>
+-->
+   <center>
+     <button type="button" id="dmdbut" onclick="sendreq()">Soumettre</button>
+     <!--<input type="submit" value="Valider" onblur="senddmd()" />-->
+
+	 <button id="quit" onclick="quit()">Quitter</button>
+    </center>	 
+</div>
+ <script>
+ var socket;
+ //horaires V2
+ //var startTime = document.getElementById("startTime");
+ //var endTime = document.getElementById("endTime");
+ //var valueSpan = document.getElementById("value");
+ //var Rdate = document.getElementById("dateutu").value;
+//duplication
+ document.getElementById('button').onclick = duplicate;
+ var i = 0;
+ var original = document.getElementById("duplicater");
+ function duplicate() {
+     var clone = original.cloneNode(true); // "deep" clone
+     clone.id = "duplicetor" + ++i; // there can only be one element with an ID
+     original.parentNode.appendChild(clone);
+ }
+//horaires V2
+ startTime.addEventListener("input", function() {
+   valueSpan.innerText = startTime.value;
+   valueSpan.innerText = endTime.value;
+ }, false);
+//initialisation co
+ function init(){
+   var host = "ws://localhost:12345";
+   try{
+     socket = new WebSocket(host);
+     log('WebSocket - status '+socket.readyState);
+     socket.onopen    = function(msg){ log("Welcome - status "+this.readyState); };
+     socket.onmessage = function(msg){ log("Received: "+msg.data); };
+     socket.onclose   = function(msg){ log("Disconnected - status "+this.readyState); };
+   }
+   catch(ex){ log(ex); }
+ }
+//sendreq
+ function sendreq(){
+   var msg;
+   var x = document.getElementById("metier").selectedIndex;
+   var y = document.getElementById("metier").options;
+   var a = document.getElementById("creneau").selectedIndex;
+   var b = document.getElementById("creneau").options;
+   var d = document.getElementById("requete").selectedIndex;
+   var e = document.getElementById("requete").options;
+   var Rvil = document.getElementById("ville").value;
+   var Rdate = document.getElementById("date").value;
+  if (e[d].index==0){
+    msg = "DMD " + b[a].value + " " + Rdate + " " + y[x].value + " " +  Rvil;
+    if(!msg){ alert("Le message n'est pas conforme [vide]."); return; }
+    //try{ socket.send(msg); log('Votre requête: '+msg); } catch(ex){ log(ex); }
+    try{log('Votre requete: ' + msg);} catch(ex){ log(ex); }
+  }
+  else {
+   msg = "CPT " + b[a].value + " " + Rdate + " " + y[x].value + " " +  Rvil;
+    if(!msg){ alert("Le message n'est pas conforme [vide]."); return; }
+    //try{ socket.send(msg); log('Votre requête: '+msg); } catch(ex){ log(ex); }
+    try{log('Votre requete: ' + msg);} catch(ex){ log(ex); }
+  }
+}
+ //quitter
+ function quit(){
+   log("Goodbye!");
+   socket.close();
+   socket=null;
+ }
+ // Utilities
+ function $(id){ return document.getElementById(id); }
+ function log(msg){ $("log").innerHTML+="<br>"+msg; }
+ function onkey(event){ if(event.keyCode==13){ send(); } }
+ </script>
+
+
+</body>
+</html>
