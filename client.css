@@ -1,70 +1,71 @@
 body {
-    font:normal 0.9em arial,helvetica;
-    color:black;
-	top: 5%;
-    left: 20%;
-	position: absolute
-	
+  font:normal 0.9em arial,helvetica;
+  color:black;
+  top: 5%;
+  left: 20%;
+  position: absolute
+
 }
 div{
-	
-	position : center;
-	border-spacing : 15px;
-	background-color: #F8F8FF
 
-	}	
-#formulaire {
-	padding-top: 10px;
-    padding-left: 20px;
-	padding-right: 20px;
-	padding-bottom: 10px;
-	border-style : double;
-	background-color: #F8F8FF;
-	margin-left: 10px;
-	margin-right: 10px;
-	margin-top: 10px;
-	margin-bottom: 10px;
-	font-style: italic
+  position : center;
+  border-spacing : 15px;
+  background-color: #F8F8FF
+}
+
+#corp {
+  padding-top: 10px;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-bottom: 10px;
+  border-style : double;
+  background-color: #F8F8FF;
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  font-style: italic;
+  max-width: 440px;
 }
 #global {
-	padding-top: 5px;
-    padding-left: 10px;
-	padding-right: 10px;
-	border-style : double;
-	background-color: #FF8C00;
-	font-style : italic;
+  padding-top: 5px;
+  padding-left: 10px;
+  padding-right: 10px;
+  border-style : double;
+  background-color: #FF8C00;
+  font-style : italic;
 }
 
 h2{
-	text-align: center;
-	text-decoration : underline
+  text-align: center;
+  text-decoration : underline
 }
 
- #log {
-	 width:440px; 
-	 height:200px; 
-	 border:1px;
-	 overflow:auto;
-	 border-style : double;
-	 border-spacing: 15px;
-	 margin-left: 10px;
-	 margin-right: 10px;
-	 margin-top: 10px;
-	 margin-bottom: 10px;
-	 padding-left: 20px;
-	 padding-right: 20px;
+#log {
+  width:440px;
+  height:200px;
+  border:1px;
+  overflow:auto;
+  border-style : double;
+  border-spacing: 15px;
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  padding-left: 20px;
+  padding-right: 20px;
 }
- #msg {
-	 width:330px;
+#msg {
+  width:330px;
 }
-#dmdbut{
-	background : green;
-	margin-right: 20px;
-	margin-top: 5px;
+#sumbut{
+  background : green;
+  margin-right: 20px;
+  margin-top: 5px;
 }
 
 #quit{
-	background : red;
-	margin-left: 10px;
-	margin-top: 5px;
+  background : red;
+  margin-left: 10px;
+  margin-top: 5px;
 }
